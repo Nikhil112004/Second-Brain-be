@@ -7,6 +7,7 @@ import { JWT_PASSWORD } from "./config";
 import { userMiddleware } from "./middleware";
 import { random } from "./utils";
 import cors from "cors";
+import { NowRequest, NowResponse } from '@vercel/node'
 
 const app = express();
 app.use(express.json());
