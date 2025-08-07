@@ -7,10 +7,15 @@ import { JWT_PASSWORD } from "./config";
 import { userMiddleware } from "./middleware";
 import { random } from "./utils";
 import cors from "cors";
+import { NowRequest, NowResponse } from '@vercel/node'
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+app.get('/', (req, res) => {
+  res.send('Hello from the backend!');
+});
 
 app.post("/api/v1/signup", async (req, res) => {
     const username = req.body.username;
