@@ -129,9 +129,8 @@ app.post("/api/v1/brain/share", userMiddleware,  async(req, res) => {
 
 
 
-app.get("/logout", userMiddleware, async (req, res) => {
+app.get("api/v1/logout", userMiddleware, async (req, res) => {
     try {
-        // If you don’t have a blacklist, just tell the client to remove token
         res.status(200).json({
             success: true,
             message: "Logout successful. Please remove token from client."
