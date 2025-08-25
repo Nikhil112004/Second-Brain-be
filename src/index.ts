@@ -128,23 +128,21 @@ app.post("/api/v1/brain/share", userMiddleware,  async(req, res) => {
 })
 
 
-app.get("/api/v1/brain/:shareLink", async (req, res) => {
-  const { shareLink } = req.params;
 
-
-  const linkDoc = await LinkModel.findOne({ hash: shareLink });
-  if (!linkDoc) {
-    return res.status(404).json({ message: "Invalid share link" });
-  }
-
-  const contents = await ContentModel.find({
-    userId: linkDoc.userId
-  }).populate("userId", "username");
-
-  return res.json({
-    sharedBy: linkDoc.userId.username,
-    contents
-  });
+app.get("/logout", userMiddleware, async (req, res) => {
+    try {
+        // If you don’t have a blacklist, just tell the client to remove token
+        res.status(200).json({
+            success: true,
+            message: "Logout successful. Please remove token from client."
+        });
+    } catch (error) {
+        console.error("Logout error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Server error during logout"
+        });
+    }
 });
 
 app.listen(3000);
