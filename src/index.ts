@@ -92,6 +92,22 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     })
 })
 
+let tokenBlacklist = [];
+
+app.post("/api/v1/logout", userMiddleware, (req, res) => {
+  const token = req.headers["authorization"];
+  if (!token) {
+    return res.status(400).json({ message: "No token provided" });
+  }
+
+  tokenBlacklist.push(token);  // store token in blacklist
+
+  res.json({
+    success: true,
+    message: "Logged out successfully"
+  });
+});
+
 app.post("/api/v1/brain/share", userMiddleware,  async(req, res) => {
     const share = req.body.share;
     if(share) {
